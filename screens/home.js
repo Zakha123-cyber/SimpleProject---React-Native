@@ -1,22 +1,19 @@
-import "../gesture-handler.native";
+import * as React from "react";
 import { StyleSheet, Text, View, ImageBackground, Image, Alert, TouchableOpacity, ScrollView, Button, TextInput } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 
-export default function Home() {
+function HomeScreen({ navigation }) {
   const showAlert = (message) => {
     Alert.alert("Awas Hewan Buas!", message, [{ text: "OK" }]);
   };
 
   const [input, setInput] = useState("");
-  const [savedText, setSavedText] = useState(""); // State untuk menyimpan teks setelah tombol diklik
-  const [isVisible, setIsVisible] = useState(false); // State untuk mengatur visibilitas
+  const [savedText, setSavedText] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Fungsi untuk menyimpan teks ketika tombol "Simpan" diklik
   const handleSave = () => {
-    setSavedText(input); // Memperbarui state savedText dengan nilai input saat ini
-    // setIsVisible(!isVisible); // Toggle visibilitas teks
+    setSavedText(input);
   };
-
   return (
     <ImageBackground
       source={require("../assets/emyu.jpg")} // Menggunakan gambar lokal
@@ -34,7 +31,21 @@ export default function Home() {
                   <Image source={require("../assets/anap.jpg")} style={styles.image} />
                 </View>
               </TouchableOpacity>
-              <Button title="Halo Saya Anap" onPress={() => showAlert("Haloo nama saya Anap, saya suka bermain gitar")} color="#222021" style={styles.buttonStyle} />
+              <Button
+                title="Halo Saya Anap"
+                onPress={() => {
+                  showAlert("Haloo nama saya Anap, saya suka bermain gitar");
+                  const params = {
+                    name: "Anap",
+                    hoby: "Gitar",
+                    foto: require("../assets/anap.jpg"),
+                    kata_kata: "Haloo nama saya Anap, saya suka bermain gitar",
+                  };
+                  navigation.navigate("Detail", params);
+                }}
+                color="#222021"
+                style={styles.buttonStyle}
+              />
             </View>
             <View>
               <TouchableOpacity onPress={() => showAlert("Perkenalkan nama saya Devies, biasa dipanggil Nengok, saya suka bermain game")} style={styles.containerImage}>
@@ -42,7 +53,21 @@ export default function Home() {
                   <Image source={require("../assets/devies.jpg")} style={styles.image} />
                 </View>
               </TouchableOpacity>
-              <Button title="Halo Saya Devies" onPress={() => showAlert("Perkenalkan nama saya Devies, biasa dipanggil Nengok, saya suka bermain game")} color="#222021" style={styles.buttonStyle} />
+              <Button
+                title="Halo Saya Devies"
+                onPress={() => {
+                  showAlert("Perkenalkan nama saya Devies, biasa dipanggil Nengok, saya suka bermain game");
+                  const params = {
+                    name: "Devies",
+                    hoby: "Mengocok Perut",
+                    foto: require("../assets/devies.jpg"),
+                    kata_kata: "Perkenalkan nama saya Devies, biasa dipanggil Nengok, saya suka bermain game",
+                  };
+                  navigation.navigate("Detail", params);
+                }}
+                color="#222021"
+                style={styles.buttonStyle}
+              />
             </View>
             <View style={styles.imageBatas}>
               <TouchableOpacity onPress={() => showAlert("Perkenalkan nama saya Zakha, biasa dipanggil Jaka, saya suka Anap")} style={styles.containerImage}>
@@ -50,7 +75,21 @@ export default function Home() {
                   <Image source={require("../assets/jaka.jpg")} style={styles.image} />
                 </View>
               </TouchableOpacity>
-              <Button title="Halo Saya Zakha" onPress={() => showAlert("Perkenalkan nama saya Zakha, biasa dipanggil Jaka, saya suka Anap")} color="#222021" style={styles.buttonStyle} />
+              <Button
+                title="Halo Saya Zakha"
+                onPress={() => {
+                  showAlert("Perkenalkan nama saya Zakha, biasa dipanggil Jaka, saya suka Anap");
+                  const params = {
+                    name: "Zakha",
+                    hoby: "Membadut",
+                    foto: require("../assets/jaka.jpg"),
+                    kata_kata: "Perkenalkan nama saya Zakha, biasa dipanggil Jaka, saya suka Anap",
+                  };
+                  navigation.navigate("Detail", params);
+                }}
+                color="#222021"
+                style={styles.buttonStyle}
+              />
               <View style={styles.container}></View>
             </View>
           </ScrollView>
@@ -103,11 +142,13 @@ const styles = StyleSheet.create({
     alignItems: "center", // Mengatur elemen di tengah secara horizontal
     // borderWidth: 5,
     borderColor: "white",
+    marginBottom: 20,
   },
   container2: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 30,
   },
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -197,3 +238,5 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 });
+
+export default HomeScreen;
